@@ -6,7 +6,9 @@ services:
     image: murilloc/jms-pratica-1
     tty: true
     volumes:
-      - ./:/var/www
+      - type: bind
+        source: ./
+        target: /var/www
     depends_on:
       - db
       - redis
@@ -23,7 +25,9 @@ services:
     ports:
       - "33060:3306"
     volumes:
-      - "./.docker/database:/var/lib/mysql"
+      - type: bind
+        source: ./.docker/database
+        target: /var/lib/mysql
     environment:
       MYSQL_DATABASE: webapp
       MYSQL_USER: root
@@ -50,7 +54,9 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - ./:/var/www
+      - type: bind
+        source: ./
+        target: /var/www
     depends_on:
       - webapp
     networks:
